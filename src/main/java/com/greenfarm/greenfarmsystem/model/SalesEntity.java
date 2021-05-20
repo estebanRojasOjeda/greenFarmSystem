@@ -6,11 +6,11 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "organic_input_type")
-public class OrganicInputType {
+@Table(name = "sales")
+public class SalesEntity {
 
   @Id
-  @Column(name = "oity_id")
+  @Column(name = "sale_id")
   private Integer id;
 
 }

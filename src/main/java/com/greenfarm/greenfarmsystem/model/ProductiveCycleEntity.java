@@ -3,12 +3,15 @@ package com.greenfarm.greenfarmsystem.model;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "productive_cycle")
-public class ProductiveCycle {
+public class ProductiveCycleEntity {
 
   @Id
   @Column(name = "prcy_id")
@@ -29,6 +32,9 @@ public class ProductiveCycle {
   @Column(name = "prcy_production_amount")
   private Integer prodution_amount;
 
+  @ManyToOne
+  @JoinColumn(name = "prcy_orpr_id_fk", nullable = false, foreignKey = @ForeignKey(name = "FK_organic_product"))
+  private OrganicProductEntity organicProductEntity;
 
   public Integer getId() {
     return id;
