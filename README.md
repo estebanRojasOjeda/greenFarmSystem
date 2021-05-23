@@ -1,2 +1,2 @@
 # greenFarmSystem
-System for famrs
+System for farms
