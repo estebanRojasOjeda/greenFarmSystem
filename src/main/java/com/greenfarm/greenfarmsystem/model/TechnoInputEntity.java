@@ -11,6 +11,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "technological_input")
@@ -18,37 +21,42 @@ public class TechnoInputEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "techno_input_seq")
-  @SequenceGenerator(name = "techno_input_seq", sequenceName = "techno_input_seq")
+  @SequenceGenerator(name = "techno_input_seq", sequenceName = "techno_input_seq", initialValue = 1)
   @Column(name = "tein_id")
-  private Integer id;
+  private Long id;
 
-  @Column(name = "tein_start_date")
+  @NotNull
+  @Column(name = "tein_start_date", nullable = true)
   private LocalDateTime start_date;
 
-  @Column(name = "tein_end_date")
+  @NotNull
+  @Column(name = "tein_end_date", nullable = true)
   private LocalDateTime end_date;
 
-  @Column(name = "tein_manufacturer", length = 60)
+  @NotBlank
+  @Size(min=1, max=60, message = "El nombre de fabricante debe contener entre 1 y 60 caracteres")
+  @Column(name = "tein_manufacturer", length = 60, nullable = true)
   private String manufacturer;
 
-  @Column(name = "tein_model", length = 60)
+  @NotBlank
+  @Size(min=1, max=60, message = "El nombre de modelo debe contener entre 1 y 60 caracteres")
+  @Column(name = "tein_model", length = 60, nullable = true)
   private String model;
 
-  @Column(name = "tein_price")
+  @NotNull
+  @Column(name = "tein_price", nullable = true)
   private Integer price;
 
-  @Column(name = "tein_measurement_type", length = 60)
-  private String measurementType;
 
   @ManyToOne
   @JoinColumn(name = "tein_tity_id_fk", nullable = false, foreignKey = @ForeignKey(name = "FK_techno_input_type"))
   private TechnoInputTypeEntity technoInputTypeEntity;
 
-  public Integer getId() {
+  public Long getId() {
     return id;
   }
 
-  public void setId(Integer id) {
+  public void setId(Long id) {
     this.id = id;
   }
 
@@ -101,11 +109,4 @@ public class TechnoInputEntity {
     this.price = price;
   }
 
-  public String getMeasurementType() {
-    return measurementType;
-  }
-
-  public void setMeasurementType(String measurementType) {
-    this.measurementType = measurementType;
-  }
 }

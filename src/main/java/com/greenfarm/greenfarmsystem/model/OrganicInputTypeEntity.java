@@ -7,6 +7,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "organic_input_type")
@@ -14,21 +17,19 @@ public class OrganicInputTypeEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "orinputtype_seq")
-  @SequenceGenerator(name = "orinputtype_seq", sequenceName = "orinputtype_seq")
+  @SequenceGenerator(name = "orinputtype_seq", sequenceName = "orinputtype_seq", initialValue=1)
   @Column(name = "oity_id")
   private Long id;
 
-  @Column(name = "oity_name", length = 60)
+  @NotBlank
+  @Size(min=1, max=60, message = "El nombre de insumo organico debe contener entre 1 y 60 caracteres")
+  @Column(name = "oity_name", length = 60, nullable = true)
   private String name;
 
-  @Column(name = "oity_measurement_type", length = 60)
+  @NotBlank
+  @Size(min=1, max=3, message = "El nombre de unidad de medición debe contener entre 1 y 3 caracteres")
+  @Column(name = "oity_measurement_type", length = 3, nullable = true)
   private String measurementType;
-
-  @Column(name = "oity_supplier", length = 60)
-  private String supplier;
-
-  @Column(name = "tein_price")
-  private Integer price;
 
 
   public Long getId() {
@@ -55,19 +56,4 @@ public class OrganicInputTypeEntity {
     this.measurementType = measurementType;
   }
 
-  public String getSupplier() {
-    return supplier;
-  }
-
-  public void setSupplier(String supplier) {
-    this.supplier = supplier;
-  }
-
-  public Integer getPrice() {
-    return price;
-  }
-
-  public void setPrice(Integer price) {
-    this.price = price;
-  }
 }

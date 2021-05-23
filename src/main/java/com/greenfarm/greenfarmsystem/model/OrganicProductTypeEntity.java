@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "organic_product_type")
@@ -14,24 +16,30 @@ public class OrganicProductTypeEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "orprodtype_seq")
-  @SequenceGenerator(name = "orprodtype_seq", sequenceName = "orprodtype_seq")
+  @SequenceGenerator(name = "orprodtype_seq", sequenceName = "orprodtype_seq", initialValue=1)
   @Column(name = "opty_id")
-  private Integer id;
+  private Long id;
 
-  @Column(name = "opty_name", length = 100)
+  @NotBlank
+  @Size(min=1, max=60, message = "El nombre de tipo de producto organico debe contener entre 1 y 60 caracteres")
+  @Column(name = "opty_name", length = 60, nullable = true)
   private String productTypeName;
 
-  @Column(name = "opty_family", length = 100)
+  @NotBlank
+  @Size(min=1, max=60, message = "El nombre de familia de producto organico debe contener entre 1 y 60 caracteres")
+  @Column(name = "opty_family", length = 100, nullable = true)
   private String producttypeFamily;
 
+  @NotBlank
+  @Size(min=1, max=100, message = "Las caracteristicas de producto organico debe contener entre 1 y 60 caracteres")
   @Column(name = "opty_desc", length = 100)
   private String productTypeDescription;
 
-  public Integer getId() {
+  public Long getId() {
     return id;
   }
 
-  public void setId(Integer id) {
+  public void setId(Long id) {
     this.id = id;
   }
 

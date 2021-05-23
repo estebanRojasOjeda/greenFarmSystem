@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "jt_productcycle_organicinput")
@@ -19,11 +20,12 @@ public class ProdCycleOrganicInputEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "jt_prcy_orginput_seq")
-  @SequenceGenerator(name = "jt_prcy_orginput_seq", sequenceName = "jt_prcy_orginput_seq")
+  @SequenceGenerator(name = "jt_prcy_orginput_seq", sequenceName = "jt_prcy_orginput_seq", initialValue=1)
   @Column(name = "jt_pror_id")
-  private Integer id;
+  private Long id;
 
-  @Column(name = "jt_pror_amount")
+  @NotNull
+  @Column(name = "jt_pror_amount", nullable = true)
   private Integer amount;
 
   @ManyToOne(fetch = FetchType.LAZY)
@@ -37,11 +39,11 @@ public class ProdCycleOrganicInputEntity {
   private ProductiveCycleEntity productiveCycleEntity;
 
 
-  public Integer getId() {
+  public Long getId() {
     return id;
   }
 
-  public void setId(Integer id) {
+  public void setId(Long id) {
     this.id = id;
   }
 

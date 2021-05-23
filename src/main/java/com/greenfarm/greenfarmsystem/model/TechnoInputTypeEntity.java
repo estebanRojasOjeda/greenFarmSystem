@@ -14,6 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "technological_input_type")
@@ -21,17 +23,42 @@ public class TechnoInputTypeEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "techno_input_type_seq")
-  @SequenceGenerator(name = "techno_input_type_seq", sequenceName = "techno_input_type_seq")
+  @SequenceGenerator(name = "techno_input_type_seq", sequenceName = "techno_input_type_seq", initialValue = 1)
   @Column(name = "tity_id")
-  private Integer id;
+  private Long id;
 
-  @Column(name = "tity_name")
+  @NotBlank
+  @Size(min=1, max=60, message = "El nombre de insumo Tegnologico debe contener entre 1 y 60 caracteres")
+  @Column(name = "tity_name", length = 60, nullable = true)
   private String name;
 
-  @Column(name = "tity_manufacturer_name")
-  private String manufacturer_name;
+  @NotBlank
+  @Size(min=1, max=3, message = "El nombre de unidad de medición debe contener entre 1 y 3 caracteres")
+  @Column(name = "tity_measurement_type", length = 3, nullable = true)
+  private String measurementType;
 
-  @Column(name = "tity_model")
-  private String model;
 
+  public Long getId() {
+    return id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public String getMeasurementType() {
+    return measurementType;
+  }
+
+  public void setMeasurementType(String measurementType) {
+    this.measurementType = measurementType;
+  }
 }

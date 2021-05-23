@@ -10,6 +10,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "organic_input")
@@ -17,17 +20,26 @@ public class OrganicInputEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "orginput_seq")
-  @SequenceGenerator(name = "orginput_seq", sequenceName = "orginput_seq")
+  @SequenceGenerator(name = "orginput_seq", sequenceName = "orginput_seq", initialValue = 1)
   @Column(name = "orin_id")
   private Long id;
 
-  @Column(name = "orin_manufacturer", length = 60)
+  @NotBlank
+  @Size(min=1, max=60, message = "El nombre de insumo organico debe contener entre 1 y 60 caracteres")
+  @Column(name = "orin_name", length = 60, nullable = true)
+  private String name;
+
+  @NotBlank
+  @Size(min=1, max=60, message = "El nombre de fabricante debe contener entre 1 y 60 caracteres")
+  @Column(name = "orin_manufacturer", length = 60, nullable = true)
   private String manufacturer;
 
+  @Size(min=1, max=60, message = "El nombre de modelo debe contener entre 1 y 60 caracteres")
   @Column(name = "orin_model", length = 60)
   private String model;
 
-  @Column(name = "orin_price")
+  @NotNull
+  @Column(name = "orin_price", nullable = true)
   private Integer price;
 
   @ManyToOne
@@ -73,5 +85,13 @@ public class OrganicInputEntity {
 
   public void setPrice(Integer price) {
     this.price = price;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
   }
 }

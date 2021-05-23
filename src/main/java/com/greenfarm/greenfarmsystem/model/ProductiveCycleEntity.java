@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "productive_cycle")
@@ -18,20 +19,18 @@ public class ProductiveCycleEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "prodcycle_seq")
-  @SequenceGenerator(name = "prodcycle_seq", sequenceName = "prodcycle_seq", allocationSize = 1)
+  @SequenceGenerator(name = "prodcycle_seq", sequenceName = "prodcycle_seq", initialValue = 1)
   @Column(name = "prcy_id")
   private Long id;
 
-  @Column(name = "prcy_start_date")
+  @NotNull
+  @Column(name = "prcy_start_date", nullable = true)
   private LocalDateTime startDate;
 
-  @Column(name = "prcy_end_date")
+  @NotNull
+  @Column(name = "prcy_end_date", nullable = true)
   private LocalDateTime endDate;
 
-
-//  @ManyToOne
-//  @JoinColumn(name = "prcy_orpr_id_fk", nullable = false, foreignKey = @ForeignKey(name = "FK_organic_product"))
-//  private OrganicProductEntity organicProductEntity;
 
   public Long getId() {
     return id;
@@ -41,20 +40,19 @@ public class ProductiveCycleEntity {
     this.id = id;
   }
 
-  public LocalDateTime getStart_date() {
+  public LocalDateTime getStartDate() {
     return startDate;
   }
 
-  public void setStart_date(LocalDateTime start_date) {
-    this.startDate = start_date;
+  public void setStartDate(LocalDateTime startDate) {
+    this.startDate = startDate;
   }
 
-  public LocalDateTime getEnd_date() {
+  public LocalDateTime getEndDate() {
     return endDate;
   }
 
-  public void setEnd_date(LocalDateTime end_date) {
-    this.endDate = end_date;
+  public void setEndDate(LocalDateTime endDate) {
+    this.endDate = endDate;
   }
-
 }
