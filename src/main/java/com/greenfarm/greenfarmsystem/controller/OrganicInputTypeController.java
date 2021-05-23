@@ -3,6 +3,7 @@ package com.greenfarm.greenfarmsystem.controller;
 import com.greenfarm.greenfarmsystem.model.OrganicInputTypeEntity;
 import com.greenfarm.greenfarmsystem.service.OrganicInputTypeService;
 import java.util.List;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,7 +34,7 @@ public class OrganicInputTypeController {
   }
 
   @RequestMapping(method = RequestMethod.POST)
-  public OrganicInputTypeEntity save(@RequestBody OrganicInputTypeEntity organicInputTypeEntity){
+  public OrganicInputTypeEntity save(@RequestBody @Valid OrganicInputTypeEntity organicInputTypeEntity){
     return organicInputTypeService.save(organicInputTypeEntity);
   }
 
