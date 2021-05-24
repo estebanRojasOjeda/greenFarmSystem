@@ -1,5 +1,10 @@
 package com.greenfarm.greenfarmsystem.repository;
 
-public interface TechnoInputRepository {
+import com.greenfarm.greenfarmsystem.model.TechnoInputEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface TechnoInputRepository extends JpaRepository<TechnoInputEntity, Long> {
 
 }

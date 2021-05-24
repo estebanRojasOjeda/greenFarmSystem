@@ -1,7 +1,6 @@
 package com.greenfarm.greenfarmsystem.service.impl;
 
 import com.greenfarm.greenfarmsystem.model.OrganicInputEntity;
-import com.greenfarm.greenfarmsystem.model.OrganicInputTypeEntity;
 import com.greenfarm.greenfarmsystem.repository.OrganicInputRepository;
 import com.greenfarm.greenfarmsystem.service.OrganicInputService;
 import corp.sche.trmg.commons.exception.BusinessException;
@@ -14,8 +13,6 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
