@@ -63,7 +63,16 @@ public class OrganicInputServiceImpl implements OrganicInputService {
   }
 
   @Override
-  public void delete(Long id) {
+  public boolean delete(Long id) throws Exception{
+
+    Optional<OrganicInputEntity> optionalOrganicInputEntity = organicInputRepository
+        .findById(id);
+    if (!optionalOrganicInputEntity.isPresent()) {
+      throw new Exception("ID NO ENCONTRADO: " + id);
+    }
     organicInputRepository.deleteById(id);
+    return true;
   }
+
 }
+

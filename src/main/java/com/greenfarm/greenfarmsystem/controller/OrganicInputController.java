@@ -44,7 +44,7 @@ public class OrganicInputController {
   }
 
   @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
-  public String deleteById(@PathVariable("id") Long id){
+  public String deleteById(@PathVariable("id") Long id) throws Exception {
         organicInputService.delete(id);
         return "Organic input deleted!";
   }

@@ -1,5 +1,7 @@
 package com.greenfarm.greenfarmsystem.model;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,9 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+@ApiModel(description = "Organic input type properties")
 @Entity
 @Table(name = "organic_input_type")
 public class OrganicInputTypeEntity {
@@ -21,6 +23,7 @@ public class OrganicInputTypeEntity {
   @Column(name = "oity_id")
   private Long id;
 
+  @ApiModelProperty(notes = "Name must be between 1 and 60 characters")
   @NotBlank
   @Size(min=1, max=60, message = "El nombre de insumo organico debe contener entre 1 y 60 caracteres")
   @Column(name = "oity_name", length = 60, nullable = true)

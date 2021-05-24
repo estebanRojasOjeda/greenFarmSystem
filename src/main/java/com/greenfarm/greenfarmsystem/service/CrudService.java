@@ -13,6 +13,6 @@ public interface CrudService<T> {
 
   T update(T t);
 
-  void delete(Long id);
+  boolean delete(Long id) throws Exception;
 
 }
