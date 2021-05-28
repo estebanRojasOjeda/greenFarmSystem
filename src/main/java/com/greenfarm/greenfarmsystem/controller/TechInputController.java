@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/gfs/production/techno-input")
-public class TechnoInputController {
+public class TechInputController {
 
   private TechInputService techInputService;
 
   @Autowired
-  public TechnoInputController(
+  public TechInputController(
       TechInputService techInputService) {
     this.techInputService = techInputService;
   }
@@ -45,7 +45,7 @@ public class TechnoInputController {
   @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
   public String deleteById(@PathVariable("id") Long id) throws Exception {
     techInputService.delete(id);
-    return "Organic input deleted!";
+    return "Technological input deleted!";
   }
 
 }
