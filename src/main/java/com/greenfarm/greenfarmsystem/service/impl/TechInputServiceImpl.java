@@ -2,7 +2,7 @@ package com.greenfarm.greenfarmsystem.service.impl;
 
 import com.greenfarm.greenfarmsystem.model.TechInputEntity;
 import com.greenfarm.greenfarmsystem.repository.TechInputRepository;
-import com.greenfarm.greenfarmsystem.service.TechnoInputService;
+import com.greenfarm.greenfarmsystem.service.TechInputService;
 import corp.sche.trmg.commons.exception.BusinessException;
 import java.util.List;
 import java.util.Optional;
@@ -16,7 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TechnoInputServiceImpl implements TechnoInputService {
+public class TechInputServiceImpl implements TechInputService {
 
   @Autowired
   private TechInputRepository techInputRepository;

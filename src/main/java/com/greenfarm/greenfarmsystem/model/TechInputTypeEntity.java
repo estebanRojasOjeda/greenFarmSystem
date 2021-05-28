@@ -19,22 +19,22 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "technological_input_type")
-public class TechnoInputTypeEntity {
+public class TechInputTypeEntity {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "techno_input_type_seq")
-  @SequenceGenerator(name = "techno_input_type_seq", sequenceName = "techno_input_type_seq", initialValue = 1)
-  @Column(name = "tity_id")
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tech_input_type_seq")
+  @SequenceGenerator(name = "tech_input_type_seq", sequenceName = "tech_input_type_seq", initialValue = 1)
+  @Column(name = "tech_input_type_id")
   private Long id;
 
   @NotBlank
   @Size(min=1, max=60, message = "El nombre de insumo Tegnologico debe contener entre 1 y 60 caracteres")
-  @Column(name = "tity_name", length = 60, nullable = true)
+  @Column(name = "tech_input_type_name", length = 60, nullable = true)
   private String name;
 
   @NotBlank
   @Size(min=1, max=3, message = "El nombre de unidad de medición debe contener entre 1 y 3 caracteres")
-  @Column(name = "tity_measurement_type", length = 3, nullable = true)
+  @Column(name = "tech_input_type_measurement", length = 3, nullable = true)
   private String measurementType;
 
 

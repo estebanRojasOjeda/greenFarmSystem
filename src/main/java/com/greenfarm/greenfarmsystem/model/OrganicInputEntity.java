@@ -19,32 +19,33 @@ import javax.validation.constraints.Size;
 public class OrganicInputEntity {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "orginput_seq")
-  @SequenceGenerator(name = "orginput_seq", sequenceName = "orginput_seq", initialValue = 1)
-  @Column(name = "orin_id")
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "org_input_seq")
+  @SequenceGenerator(name = "org_input_seq", sequenceName = "org_input_seq", initialValue = 1)
+  @Column(name = "org_input_id")
   private Long id;
 
   @NotBlank
-  @Size(min=1, max=60, message = "El nombre de insumo organico debe contener entre 1 y 60 caracteres")
-  @Column(name = "orin_name", length = 60, nullable = true)
+  @Size(min=1, max=30, message = "El nombre de insumo organico debe contener entre 1 y 30 caracteres")
+  @Column(name = "org_input_name", length = 30, nullable = true)
   private String name;
 
   @NotBlank
-  @Size(min=1, max=60, message = "El nombre de fabricante debe contener entre 1 y 60 caracteres")
-  @Column(name = "orin_manufacturer", length = 60, nullable = true)
+  @Size(min=1, max=30, message = "El nombre de fabricante debe contener entre 1 y 30 caracteres")
+  @Column(name = "org_input_manufacturer", length = 30, nullable = true)
   private String manufacturer;
 
-  @Size(min=1, max=60, message = "El nombre de modelo debe contener entre 1 y 60 caracteres")
-  @Column(name = "orin_model", length = 60)
+  @Size(min=1, max=30, message = "El nombre de modelo debe contener entre 1 y 30 caracteres")
+  @Column(name = "org_input_model", length = 30)
   private String model;
 
   @NotNull
-  @Column(name = "orin_price", nullable = true)
+  @Column(name = "org_input_price", nullable = true)
   private Integer price;
 
   @ManyToOne
-  @JoinColumn(name = "orin_oity_id_fk", nullable = false, foreignKey = @ForeignKey(name = "FK_organic_input_type"))
+  @JoinColumn(name = "org_input_type_id", nullable = false, foreignKey = @ForeignKey(name = "FK_organic_input_type"))
   private OrganicInputTypeEntity organicInputTypeEntity;
+
 
   public Long getId() {
     return id;
@@ -54,13 +55,12 @@ public class OrganicInputEntity {
     this.id = id;
   }
 
-  public OrganicInputTypeEntity getOrganicInputTypeEntity() {
-    return organicInputTypeEntity;
+  public String getName() {
+    return name;
   }
 
-  public void setOrganicInputTypeEntity(
-      OrganicInputTypeEntity organicInputTypeEntity) {
-    this.organicInputTypeEntity = organicInputTypeEntity;
+  public void setName(String name) {
+    this.name = name;
   }
 
   public String getManufacturer() {
@@ -87,11 +87,12 @@ public class OrganicInputEntity {
     this.price = price;
   }
 
-  public String getName() {
-    return name;
+  public OrganicInputTypeEntity getOrganicInputTypeEntity() {
+    return organicInputTypeEntity;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public void setOrganicInputTypeEntity(
+      OrganicInputTypeEntity organicInputTypeEntity) {
+    this.organicInputTypeEntity = organicInputTypeEntity;
   }
 }

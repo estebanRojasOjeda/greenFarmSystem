@@ -18,21 +18,21 @@ import javax.validation.constraints.Size;
 public class OrganicInputTypeEntity {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "orinputtype_seq")
-  @SequenceGenerator(name = "orinputtype_seq", sequenceName = "orinputtype_seq", initialValue=1)
-  @Column(name = "oity_id")
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "org_input_type_seq")
+  @SequenceGenerator(name = "org_input_type_seq", sequenceName = "org_input_type_seq", initialValue=1)
+  @Column(name = "org_input_type_id")
   private Long id;
 
   @ApiModelProperty(notes = "Name must be between 1 and 60 characters")
   @NotBlank
-  @Size(min=1, max=60, message = "El nombre de insumo organico debe contener entre 1 y 60 caracteres")
-  @Column(name = "oity_name", length = 60, nullable = true)
+  @Size(min=1, max=30, message = "El nombre de insumo organico debe contener entre 1 y 30 caracteres")
+  @Column(name = "org_input_type_name", length = 30, nullable = true)
   private String name;
 
   @NotBlank
   @Size(min=1, max=3, message = "El nombre de unidad de medición debe contener entre 1 y 3 caracteres")
-  @Column(name = "oity_measurement_type", length = 3, nullable = true)
-  private String measurementType;
+  @Column(name = "org_input_type_measurement", length = 3, nullable = true)
+  private String measurement;
 
 
   public Long getId() {
@@ -51,12 +51,11 @@ public class OrganicInputTypeEntity {
     this.name = name;
   }
 
-  public String getMeasurementType() {
-    return measurementType;
+  public String getMeasurement() {
+    return measurement;
   }
 
-  public void setMeasurementType(String measurementType) {
-    this.measurementType = measurementType;
+  public void setMeasurement(String measurement) {
+    this.measurement = measurement;
   }
-
 }

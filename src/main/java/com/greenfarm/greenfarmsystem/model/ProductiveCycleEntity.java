@@ -12,24 +12,46 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "productive_cycle")
 public class ProductiveCycleEntity {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "prodcycle_seq")
-  @SequenceGenerator(name = "prodcycle_seq", sequenceName = "prodcycle_seq", initialValue = 1)
-  @Column(name = "prcy_id")
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "prod_cycle_seq")
+  @SequenceGenerator(name = "prod_cycle_seq", sequenceName = "prod_cycle_seq", initialValue = 1)
+  @Column(name = "prod_cycle_id")
   private Long id;
 
   @NotNull
-  @Column(name = "prcy_start_date", nullable = true)
+  @Column(name = "prod_cycle_start_date", nullable = true)
   private LocalDateTime startDate;
 
   @NotNull
-  @Column(name = "prcy_end_date", nullable = true)
+  @Column(name = "prod_cycle_end_date", nullable = true)
   private LocalDateTime endDate;
+
+  @ManyToOne
+  @JoinColumn(name = "org_input_id", nullable = false, foreignKey = @ForeignKey(name = "FK_organic_input"))
+  private OrganicInputEntity organicInputEntity;
+
+  @ManyToOne
+  @JoinColumn(name = "tech_input_id", nullable = false, foreignKey = @ForeignKey(name = "FK_tech_input"))
+  private TechInputEntity techInputEntity;
+
+
+  @NotNull
+  @Column(name = "prod_cycle_temperature", nullable = true)
+  private Float temperature;
+
+  @NotNull
+  @Column(name = "prod_cycle_humudity", nullable = true)
+  private Float humidity;
+
+  @Size(min=1, max=100, message = "El comentario debe contener entre 1 y 100 caracteres")
+  @Column(name = "prod_cycle_comments", length = 100, nullable = true)
+  private String comments;
 
 
   public Long getId() {
@@ -54,5 +76,46 @@ public class ProductiveCycleEntity {
 
   public void setEndDate(LocalDateTime endDate) {
     this.endDate = endDate;
+  }
+
+  public OrganicInputEntity getOrganicInputEntity() {
+    return organicInputEntity;
+  }
+
+  public void setOrganicInputEntity(
+      OrganicInputEntity organicInputEntity) {
+    this.organicInputEntity = organicInputEntity;
+  }
+
+  public TechInputEntity getTechInputEntity() {
+    return techInputEntity;
+  }
+
+  public void setTechInputEntity(TechInputEntity techInputEntity) {
+    this.techInputEntity = techInputEntity;
+  }
+
+  public Float getTemperature() {
+    return temperature;
+  }
+
+  public void setTemperature(Float temperature) {
+    this.temperature = temperature;
+  }
+
+  public Float getHumidity() {
+    return humidity;
+  }
+
+  public void setHumidity(Float humidity) {
+    this.humidity = humidity;
+  }
+
+  public String getComments() {
+    return comments;
+  }
+
+  public void setComments(String comments) {
+    this.comments = comments;
   }
 }

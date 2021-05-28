@@ -18,7 +18,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "jt_productcycle_organicproduct")
-public class ProdCycleOrganicProduct {
+public class ProductiveCycleOrganicProduct {
 
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "jt_prcy_orgproduct_seq")
@@ -31,46 +31,14 @@ public class ProdCycleOrganicProduct {
   private Integer production_amount;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "prcy_id",
+  @JoinColumn(name = "prod_cycle_id",
       foreignKey = @ForeignKey(name = "jt_pcop_prcy_id_fk"))
   private ProductiveCycleEntity productiveCycleEntity;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "orpr_id",
+  @JoinColumn(name = "org_product_id",
       foreignKey = @ForeignKey(name = "jt_pcop_orpr_id_fk"))
   private OrganicProductEntity organicProductEntity;
 
-  public Long getId() {
-    return id;
-  }
 
-  public void setId(Long id) {
-    this.id = id;
-  }
-
-  public Integer getProduction_amount() {
-    return production_amount;
-  }
-
-  public void setProduction_amount(Integer production_amount) {
-    this.production_amount = production_amount;
-  }
-
-  public ProductiveCycleEntity getProductiveCycleEntity() {
-    return productiveCycleEntity;
-  }
-
-  public void setProductiveCycleEntity(
-      ProductiveCycleEntity productiveCycleEntity) {
-    this.productiveCycleEntity = productiveCycleEntity;
-  }
-
-  public OrganicProductEntity getOrganicProductEntity() {
-    return organicProductEntity;
-  }
-
-  public void setOrganicProductEntity(
-      OrganicProductEntity organicProductEntity) {
-    this.organicProductEntity = organicProductEntity;
-  }
 }

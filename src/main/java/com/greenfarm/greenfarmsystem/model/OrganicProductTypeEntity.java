@@ -15,25 +15,26 @@ import javax.validation.constraints.Size;
 public class OrganicProductTypeEntity {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "orprodtype_seq")
-  @SequenceGenerator(name = "orprodtype_seq", sequenceName = "orprodtype_seq", initialValue=1)
-  @Column(name = "opty_id")
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "org_prod_type_seq")
+  @SequenceGenerator(name = "org_prod_type_seq", sequenceName = "org_prod_type_seq", initialValue=1)
+  @Column(name = "org_prod_type_id")
   private Long id;
 
   @NotBlank
-  @Size(min=1, max=60, message = "El nombre de tipo de producto organico debe contener entre 1 y 60 caracteres")
-  @Column(name = "opty_name", length = 60, nullable = true)
+  @Size(min=1, max=30, message = "El nombre de tipo de producto organico debe contener entre 1 y 30 caracteres")
+  @Column(name = "org_prod_type_name", length = 30, nullable = true)
   private String productTypeName;
 
   @NotBlank
-  @Size(min=1, max=60, message = "El nombre de familia de producto organico debe contener entre 1 y 60 caracteres")
-  @Column(name = "opty_family", length = 100, nullable = true)
+  @Size(min=1, max=30, message = "El nombre de familia de producto organico debe contener entre 1 y 30 caracteres")
+  @Column(name = "org_prod_type_family", length = 30, nullable = true)
   private String producttypeFamily;
 
   @NotBlank
-  @Size(min=1, max=100, message = "Las caracteristicas de producto organico debe contener entre 1 y 60 caracteres")
-  @Column(name = "opty_desc", length = 100)
+  @Size(min=1, max=100, message = "Las caracteristicas de producto organico debe contener entre 1 y 100 caracteres")
+  @Column(name = "org_prod_type_desc", length = 100)
   private String productTypeDescription;
+
 
   public Long getId() {
     return id;

@@ -1,5 +1,8 @@
 package com.greenfarm.greenfarmsystem.service;
 
-public interface TechInputTypeService {
+
+import com.greenfarm.greenfarmsystem.model.TechInputTypeEntity;
+
+public interface TechInputTypeService extends CrudService<TechInputTypeEntity> {
 
 }

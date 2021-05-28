@@ -19,22 +19,22 @@ import javax.validation.constraints.Size;
 public class OrganicProductEntity {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "orgproduct_seq")
-  @SequenceGenerator(name = "orgproduct_seq", sequenceName = "orgproduct_seq", initialValue=1)
-  @Column(name = "orpr_id")
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "org_product_seq")
+  @SequenceGenerator(name = "org_product_seq", sequenceName = "org_product_seq", initialValue=1)
+  @Column(name = "org_product_id")
   private Long Id;
 
   @NotBlank
   @Size(min=1, max=60, message = "El nombre de tipo de insumo organico debe contener entre 1 y 60 caracteres")
-  @Column(name = "orpr_name", length = 60, nullable = true)
+  @Column(name = "org_product_name", length = 60, nullable = true)
   private String name;
 
   @NotNull
-  @Column(name = "jt_sapr_price", nullable = true)
+  @Column(name = "org_product_price", nullable = true)
   private Integer price;
 
   @ManyToOne
-  @JoinColumn(name = "orpr_opty_id_fk", nullable = false, foreignKey = @ForeignKey(name = "FK_organic_product_type"))
+  @JoinColumn(name = "org_prod_type_id", nullable = false, foreignKey = @ForeignKey(name = "FK_organic_product_type"))
   private OrganicProductTypeEntity organicProductTypeEntity;
 
 
@@ -52,6 +52,14 @@ public class OrganicProductEntity {
 
   public void setName(String name) {
     this.name = name;
+  }
+
+  public Integer getPrice() {
+    return price;
+  }
+
+  public void setPrice(Integer price) {
+    this.price = price;
   }
 
   public OrganicProductTypeEntity getOrganicProductTypeEntity() {

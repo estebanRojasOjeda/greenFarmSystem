@@ -17,40 +17,40 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "technological_input")
-public class TechnoInputEntity {
+public class TechInputEntity {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "techno_input_seq")
-  @SequenceGenerator(name = "techno_input_seq", sequenceName = "techno_input_seq", initialValue = 1)
-  @Column(name = "tein_id")
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tech_input_seq")
+  @SequenceGenerator(name = "tech_input_seq", sequenceName = "tech_input_seq", initialValue = 1)
+  @Column(name = "tech_input_id")
   private Long id;
 
   @NotNull
-  @Column(name = "tein_start_date", nullable = true)
+  @Column(name = "tech_input_start_date", nullable = true)
   private LocalDateTime start_date;
 
   @NotNull
-  @Column(name = "tein_end_date", nullable = true)
+  @Column(name = "tech_input_end_date", nullable = true)
   private LocalDateTime end_date;
 
   @NotBlank
-  @Size(min=1, max=60, message = "El nombre de fabricante debe contener entre 1 y 60 caracteres")
-  @Column(name = "tein_manufacturer", length = 60, nullable = true)
+  @Size(min=1, max=30, message = "El nombre de fabricante debe contener entre 1 y 30 caracteres")
+  @Column(name = "tech_input_manufacturer", length = 30, nullable = true)
   private String manufacturer;
 
   @NotBlank
-  @Size(min=1, max=60, message = "El nombre de modelo debe contener entre 1 y 60 caracteres")
-  @Column(name = "tein_model", length = 60, nullable = true)
+  @Size(min=1, max=30, message = "El nombre de modelo debe contener entre 1 y 30 caracteres")
+  @Column(name = "tech_input_model", length = 30, nullable = true)
   private String model;
 
   @NotNull
-  @Column(name = "tein_price", nullable = true)
+  @Column(name = "tech_input_price", nullable = true)
   private Integer price;
 
 
   @ManyToOne
-  @JoinColumn(name = "tein_tity_id_fk", nullable = false, foreignKey = @ForeignKey(name = "FK_techno_input_type"))
-  private TechnoInputTypeEntity technoInputTypeEntity;
+  @JoinColumn(name = "tech_input_type_id", nullable = false, foreignKey = @ForeignKey(name = "FK_techno_input_type"))
+  private TechInputTypeEntity techInputTypeEntity;
 
   public Long getId() {
     return id;
@@ -76,13 +76,13 @@ public class TechnoInputEntity {
     this.end_date = end_date;
   }
 
-  public TechnoInputTypeEntity getTechnoInputTypeEntity() {
-    return technoInputTypeEntity;
+  public TechInputTypeEntity getTechInputTypeEntity() {
+    return techInputTypeEntity;
   }
 
-  public void setTechnoInputTypeEntity(
-      TechnoInputTypeEntity technoInputTypeEntity) {
-    this.technoInputTypeEntity = technoInputTypeEntity;
+  public void setTechInputTypeEntity(
+      TechInputTypeEntity techInputTypeEntity) {
+    this.techInputTypeEntity = techInputTypeEntity;
   }
 
   public String getManufacturer() {
