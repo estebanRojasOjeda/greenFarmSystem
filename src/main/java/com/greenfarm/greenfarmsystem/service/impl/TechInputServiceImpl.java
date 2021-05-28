@@ -1,7 +1,7 @@
 package com.greenfarm.greenfarmsystem.service.impl;
 
-import com.greenfarm.greenfarmsystem.model.TechnoInputEntity;
-import com.greenfarm.greenfarmsystem.repository.TechnoInputRepository;
+import com.greenfarm.greenfarmsystem.model.TechInputEntity;
+import com.greenfarm.greenfarmsystem.repository.TechInputRepository;
 import com.greenfarm.greenfarmsystem.service.TechnoInputService;
 import corp.sche.trmg.commons.exception.BusinessException;
 import java.util.List;
@@ -19,12 +19,12 @@ import org.springframework.stereotype.Service;
 public class TechnoInputServiceImpl implements TechnoInputService {
 
   @Autowired
-  private TechnoInputRepository technoInputRepository;
+  private TechInputRepository techInputRepository;
 
 
   @Override
-  public TechnoInputEntity findById(Long id) {
-    Optional<TechnoInputEntity> optionalTechnoInputEntity = technoInputRepository.findById(id);
+  public TechInputEntity findById(Long id) {
+    Optional<TechInputEntity> optionalTechnoInputEntity = techInputRepository.findById(id);
     if(!optionalTechnoInputEntity.isPresent()){
       throw new BusinessException("", "Error de negocio", "Insumo Tecnologico no encontrado!: ");
     }
@@ -32,15 +32,15 @@ public class TechnoInputServiceImpl implements TechnoInputService {
   }
 
   @Override
-  public List<TechnoInputEntity> findAll() {
-    return technoInputRepository.findAll();
+  public List<TechInputEntity> findAll() {
+    return techInputRepository.findAll();
   }
 
   @Override
-  public TechnoInputEntity save(TechnoInputEntity technoInputEntity) {
+  public TechInputEntity save(TechInputEntity techInputEntity) {
     ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
     Validator validator = factory.getValidator();
-    Set<ConstraintViolation<TechnoInputEntity>> violations = validator.validate(technoInputEntity);
+    Set<ConstraintViolation<TechInputEntity>> violations = validator.validate(techInputEntity);
     if(!violations.isEmpty()){
       throw new ConstraintViolationException(violations);
     }
@@ -49,23 +49,23 @@ public class TechnoInputServiceImpl implements TechnoInputService {
             log.error(violation.getMessage());
         }
         * */
-    TechnoInputEntity technoInputEntity1 = technoInputRepository.save(technoInputEntity);
-    return technoInputEntity1;
+    TechInputEntity techInputEntity1 = techInputRepository.save(techInputEntity);
+    return techInputEntity1;
   }
 
   @Override
-  public TechnoInputEntity update(TechnoInputEntity technoInputEntity) {
-    return technoInputRepository.save(technoInputEntity);
+  public TechInputEntity update(TechInputEntity techInputEntity) {
+    return techInputRepository.save(techInputEntity);
   }
 
   @Override
   public boolean delete(Long id) throws Exception {
-    Optional<TechnoInputEntity> optionalTechnoInputEntity = technoInputRepository
+    Optional<TechInputEntity> optionalTechnoInputEntity = techInputRepository
         .findById(id);
     if (!optionalTechnoInputEntity.isPresent()) {
       throw new Exception("ID NO ENCONTRADO: " + id);
     }
-    technoInputRepository.deleteById(id);
+    techInputRepository.deleteById(id);
     return true;
   }
 }
