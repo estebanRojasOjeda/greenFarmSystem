@@ -4,83 +4,118 @@ import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "productive_cycle")
 public class ProductiveCycleEntity {
 
   @Id
-  @Column(name = "prcy_id")
-  private Integer id;
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "prod_cycle_seq")
+  @SequenceGenerator(name = "prod_cycle_seq", sequenceName = "prod_cycle_seq", initialValue = 1)
+  @Column(name = "prod_cycle_id")
+  private Long id;
 
-  @Column(name = "prcy_start_date")
-  private LocalDateTime start_date;
+  @NotNull
+  @Column(name = "prod_cycle_start_date", nullable = true)
+  private LocalDateTime startDate;
 
-  @Column(name = "prcy_end_date")
-  private LocalDateTime end_date;
-
-  @Column(name = "prcy_electricity")
-  private Integer electricity;
-
-  @Column(name = "prcy_water_amount")
-  private Integer water_amount;
-
-  @Column(name = "prcy_production_amount")
-  private Integer prodution_amount;
+  @NotNull
+  @Column(name = "prod_cycle_end_date", nullable = true)
+  private LocalDateTime endDate;
 
   @ManyToOne
-  @JoinColumn(name = "prcy_orpr_id_fk", nullable = false, foreignKey = @ForeignKey(name = "FK_organic_product"))
-  private OrganicProductEntity organicProductEntity;
+  @JoinColumn(name = "org_input_id", nullable = false, foreignKey = @ForeignKey(name = "FK_organic_input"))
+  private OrganicInputEntity organicInputEntity;
 
-  public Integer getId() {
+  @ManyToOne
+  @JoinColumn(name = "tech_input_id", nullable = false, foreignKey = @ForeignKey(name = "FK_tech_input"))
+  private TechInputEntity techInputEntity;
+
+
+  @NotNull
+  @Column(name = "prod_cycle_temperature", nullable = true)
+  private Float temperature;
+
+  @NotNull
+  @Column(name = "prod_cycle_humudity", nullable = true)
+  private Float humidity;
+
+  @Size(min=1, max=100, message = "El comentario debe contener entre 1 y 100 caracteres")
+  @Column(name = "prod_cycle_comments", length = 100, nullable = true)
+  private String comments;
+
+
+  public Long getId() {
     return id;
   }
 
-  public void setId(Integer id) {
+  public void setId(Long id) {
     this.id = id;
   }
 
-  public LocalDateTime getStart_date() {
-    return start_date;
+  public LocalDateTime getStartDate() {
+    return startDate;
   }
 
-  public void setStart_date(LocalDateTime start_date) {
-    this.start_date = start_date;
+  public void setStartDate(LocalDateTime startDate) {
+    this.startDate = startDate;
   }
 
-  public LocalDateTime getEnd_date() {
-    return end_date;
+  public LocalDateTime getEndDate() {
+    return endDate;
   }
 
-  public void setEnd_date(LocalDateTime end_date) {
-    this.end_date = end_date;
+  public void setEndDate(LocalDateTime endDate) {
+    this.endDate = endDate;
   }
 
-  public Integer getElectricity() {
-    return electricity;
+  public OrganicInputEntity getOrganicInputEntity() {
+    return organicInputEntity;
   }
 
-  public void setElectricity(Integer electricity) {
-    this.electricity = electricity;
+  public void setOrganicInputEntity(
+      OrganicInputEntity organicInputEntity) {
+    this.organicInputEntity = organicInputEntity;
   }
 
-  public Integer getWater_amount() {
-    return water_amount;
+  public TechInputEntity getTechInputEntity() {
+    return techInputEntity;
   }
 
-  public void setWater_amount(Integer water_amount) {
-    this.water_amount = water_amount;
+  public void setTechInputEntity(TechInputEntity techInputEntity) {
+    this.techInputEntity = techInputEntity;
   }
 
-  public Integer getProdution_amount() {
-    return prodution_amount;
+  public Float getTemperature() {
+    return temperature;
   }
 
-  public void setProdution_amount(Integer prodution_amount) {
-    this.prodution_amount = prodution_amount;
+  public void setTemperature(Float temperature) {
+    this.temperature = temperature;
+  }
+
+  public Float getHumidity() {
+    return humidity;
+  }
+
+  public void setHumidity(Float humidity) {
+    this.humidity = humidity;
+  }
+
+  public String getComments() {
+    return comments;
+  }
+
+  public void setComments(String comments) {
+    this.comments = comments;
   }
 }
