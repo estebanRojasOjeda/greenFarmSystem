@@ -3,8 +3,6 @@ package com.greenfarm.greenfarmsystem.controller;
 import com.greenfarm.greenfarmsystem.model.OrganicInputTypeEntity;
 import com.greenfarm.greenfarmsystem.service.OrganicInputTypeService;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,39 +27,51 @@ public class OrganicInputTypeController {
     this.organicInputTypeService = organicInputTypeService;
   }
 
-  @ApiOperation(value = "Get all organic inputs",
+  @ApiOperation(value = "Get all organic inputs types",
       notes = "No need for input parameters",
       response = List.class,
-      responseContainer = "Organic Input")
-  @ApiResponses(value = {
-      @ApiResponse(code = 400, message = "Bad request or data not sent correctly"),
-      @ApiResponse(code = 404, message = "Not found"),
-      @ApiResponse(code = 405, message = "No organic input were found in the BD"),
-      @ApiResponse(code = 200, message = "OK")})
+      responseContainer = "Organic Input Type")
   @GetMapping
-  public List<OrganicInputTypeEntity> findAll(){
+  public List<OrganicInputTypeEntity> findAll() {
     return organicInputTypeService.findAll();
   }
 
+  @ApiOperation(value = "Find by id organic input type",
+      notes = "this endpoint needs an organic input type id",
+      response = List.class,
+      responseContainer = "Organic Input Type")
   @GetMapping("/{id}")
-  public OrganicInputTypeEntity findById(@PathVariable("id") Long id){
+  public OrganicInputTypeEntity findById(@PathVariable("id") Long id) throws Exception {
     return organicInputTypeService.findById(id);
   }
 
+  @ApiOperation(value = "Save a new organic input type",
+      notes = "this endpoint needs an organic input type object",
+      response = List.class,
+      responseContainer = "Organic Input Type")
   @PostMapping
-  public OrganicInputTypeEntity save(@RequestBody @Valid OrganicInputTypeEntity organicInputTypeEntity){
+  public OrganicInputTypeEntity save(
+      @RequestBody @Valid OrganicInputTypeEntity organicInputTypeEntity) {
     return organicInputTypeService.save(organicInputTypeEntity);
   }
 
+  @ApiOperation(value = "Update a organic input type",
+      notes = "this endpoint needs an organic input type object",
+      response = List.class,
+      responseContainer = "Organic Input Type")
   @PutMapping
-  public OrganicInputTypeEntity update(@RequestBody OrganicInputTypeEntity organicInputTypeEntity){
+  public OrganicInputTypeEntity update(@RequestBody OrganicInputTypeEntity organicInputTypeEntity) {
     return organicInputTypeService.update(organicInputTypeEntity);
   }
 
+  @ApiOperation(value = "Delete a organic input type",
+      notes = "this endpoint needs an organic input type id",
+      response = List.class,
+      responseContainer = "Organic Input Type")
   @DeleteMapping("/{id}")
   public String deleteById(@PathVariable("id") Long id) throws Exception {
     organicInputTypeService.delete(id);
-    return "Organic input deleted!";
+    return "Organic input type deleted!";
   }
 
 }

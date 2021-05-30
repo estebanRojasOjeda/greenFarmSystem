@@ -29,11 +29,6 @@ public class OrganicInputController {
       notes = "No need for input parameters",
       response = List.class,
       responseContainer = "Organic Input")
-  @ApiResponses(value = {
-      @ApiResponse(code = 400, message = "Bad request or data not sent correctly"),
-      @ApiResponse(code = 404, message = "Not found"),
-      @ApiResponse(code = 405, message = "No organic input were found in the BD"),
-      @ApiResponse(code = 200, message = "OK")})
   @RequestMapping(method = RequestMethod.GET)
   public List<OrganicInputEntity> findAll(){
     return organicInputService.findAll();
@@ -43,13 +38,8 @@ public class OrganicInputController {
       notes = "This endpoint needs an organic input id like a parameter",
       response = List.class,
       responseContainer = "Organic Input")
-  @ApiResponses(value = {
-      @ApiResponse(code = 400, message = "Bad request or data not sent correctly"),
-      @ApiResponse(code = 404, message = "Not found"),
-      @ApiResponse(code = 405, message = "No organic input were found in the BD"),
-      @ApiResponse(code = 200, message = "OK")})
   @RequestMapping(method = RequestMethod.GET, value = "/{id}")
-  public OrganicInputEntity findById(@PathVariable("id") Long id){
+  public OrganicInputEntity findById(@PathVariable("id") Long id) throws Exception {
     return organicInputService.findById(id);
   }
 
@@ -57,37 +47,24 @@ public class OrganicInputController {
       notes = "this endpoint needs an organic input object",
       response = List.class,
       responseContainer = "Organic Input")
-  @ApiResponses(value = {
-      @ApiResponse(code = 400, message = "Bad request or data not sent correctly"),
-      @ApiResponse(code = 200, message = "OK")})
   @RequestMapping(method = RequestMethod.POST)
   public OrganicInputEntity save(@RequestBody OrganicInputEntity organicInputEntity){
     return organicInputService.save(organicInputEntity);
   }
 
   @ApiOperation(value = "Update organic input",
-      notes = "this endpint needs an organic input object",
+      notes = "this endpoint needs an organic input object",
       response = List.class,
       responseContainer = "Organic Input")
-  @ApiResponses(value = {
-      @ApiResponse(code = 400, message = "Bad request or data not sent correctly"),
-      @ApiResponse(code = 404, message = "Not found"),
-      @ApiResponse(code = 405, message = "No organic input were found in the BD"),
-      @ApiResponse(code = 200, message = "OK")})
   @RequestMapping(method = RequestMethod.PUT)
   public OrganicInputEntity update(@RequestBody OrganicInputEntity organicInputEntity){
     return organicInputService.update(organicInputEntity);
   }
 
   @ApiOperation(value = "Delete organic input",
-      notes = "this endpint needs an organic input id",
+      notes = "this endpoint needs an organic input id",
       response = List.class,
       responseContainer = "Organic Input")
-  @ApiResponses(value = {
-      @ApiResponse(code = 400, message = "Bad request or data not sent correctly"),
-      @ApiResponse(code = 404, message = "Not found"),
-      @ApiResponse(code = 405, message = "No organic input were found in the BD"),
-      @ApiResponse(code = 200, message = "OK")})
   @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
   public String deleteById(@PathVariable("id") Long id) throws Exception {
         organicInputService.delete(id);

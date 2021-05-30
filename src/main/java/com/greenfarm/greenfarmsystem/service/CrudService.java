@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 
 public interface CrudService<T> {
 
-  T findById(Long id);
+  T findById(Long id) throws Exception;
 
   List<T> findAll();
 

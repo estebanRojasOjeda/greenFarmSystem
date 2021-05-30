@@ -23,7 +23,7 @@ public class TechInputServiceImpl implements TechInputService {
 
 
   @Override
-  public TechInputEntity findById(Long id) {
+  public TechInputEntity findById(Long id) throws Exception{
     Optional<TechInputEntity> optionalTechnoInputEntity = techInputRepository.findById(id);
     if(!optionalTechnoInputEntity.isPresent()){
       throw new BusinessException("", "Error de negocio", "Insumo Tecnologico no encontrado!: ");
