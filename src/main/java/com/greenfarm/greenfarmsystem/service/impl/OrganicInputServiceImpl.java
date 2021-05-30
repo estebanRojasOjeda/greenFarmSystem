@@ -22,7 +22,7 @@ public class OrganicInputServiceImpl implements OrganicInputService {
   private OrganicInputRepository organicInputRepository;
 
   @Override
-  public OrganicInputEntity findById(Long id) {
+  public OrganicInputEntity findById(Long id) throws Exception{
     Optional<OrganicInputEntity> optionalOrganicInputEntity = organicInputRepository.findById(id);
     if(!optionalOrganicInputEntity.isPresent()){
       throw new BusinessException("", "Error de negocio", "Insumo organico no encontrado!: ");
