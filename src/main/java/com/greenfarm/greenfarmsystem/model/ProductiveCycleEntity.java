@@ -32,15 +32,6 @@ public class ProductiveCycleEntity {
   @Column(name = "prod_cycle_end_date", nullable = true)
   private LocalDateTime endDate;
 
-  @ManyToOne
-  @JoinColumn(name = "org_input_id", nullable = false, foreignKey = @ForeignKey(name = "FK_organic_input"))
-  private OrganicInputEntity organicInputEntity;
-
-  @ManyToOne
-  @JoinColumn(name = "tech_input_id", nullable = false, foreignKey = @ForeignKey(name = "FK_tech_input"))
-  private TechInputEntity techInputEntity;
-
-
   @NotNull
   @Column(name = "prod_cycle_temperature", nullable = true)
   private Float temperature;
@@ -76,23 +67,6 @@ public class ProductiveCycleEntity {
 
   public void setEndDate(LocalDateTime endDate) {
     this.endDate = endDate;
-  }
-
-  public OrganicInputEntity getOrganicInputEntity() {
-    return organicInputEntity;
-  }
-
-  public void setOrganicInputEntity(
-      OrganicInputEntity organicInputEntity) {
-    this.organicInputEntity = organicInputEntity;
-  }
-
-  public TechInputEntity getTechInputEntity() {
-    return techInputEntity;
-  }
-
-  public void setTechInputEntity(TechInputEntity techInputEntity) {
-    this.techInputEntity = techInputEntity;
   }
 
   public Float getTemperature() {

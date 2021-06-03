@@ -1,8 +1,5 @@
 package com.greenfarm.greenfarmsystem.model;
 
-import com.greenfarm.greenfarmsystem.model.OrganicInputEntity;
-import com.greenfarm.greenfarmsystem.model.OrganicProductEntity;
-import com.greenfarm.greenfarmsystem.model.ProductiveCycleEntity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;

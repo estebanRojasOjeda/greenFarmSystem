@@ -12,26 +12,26 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-@ApiModel(description = "Organic input type properties")
+@ApiModel(description = "Input type properties")
 @Entity
-@Table(name = "organic_input_type")
-public class OrganicInputTypeEntity {
+@Table(name = "input_type")
+public class InputTypeEntity {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "org_input_type_seq")
-  @SequenceGenerator(name = "org_input_type_seq", sequenceName = "org_input_type_seq", initialValue=1)
-  @Column(name = "org_input_type_id")
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "input_type_seq")
+  @SequenceGenerator(name = "input_type_seq", sequenceName = "input_type_seq", initialValue=1)
+  @Column(name = "input_type_id")
   private Long id;
 
   @ApiModelProperty(notes = "Name must be between 1 and 60 characters")
   @NotBlank
   @Size(min=1, max=30, message = "El nombre de insumo organico debe contener entre 1 y 30 caracteres")
-  @Column(name = "org_input_type_name", length = 30, nullable = true)
+  @Column(name = "input_type_name", length = 30, nullable = true)
   private String name;
 
   @NotBlank
   @Size(min=1, max=3, message = "El nombre de unidad de medición debe contener entre 1 y 3 caracteres")
-  @Column(name = "org_input_type_measurement", length = 3, nullable = true)
+  @Column(name = "input_type_measurement", length = 3, nullable = true)
   private String measurement;
 
 

@@ -1,8 +1,8 @@
 package com.greenfarm.greenfarmsystem.service.impl;
 
-import com.greenfarm.greenfarmsystem.model.OrganicInputEntity;
-import com.greenfarm.greenfarmsystem.repository.OrganicInputRepository;
-import com.greenfarm.greenfarmsystem.service.OrganicInputService;
+import com.greenfarm.greenfarmsystem.model.InputEntity;
+import com.greenfarm.greenfarmsystem.repository.InputRepository;
+import com.greenfarm.greenfarmsystem.service.InputService;
 import corp.sche.trmg.commons.exception.BusinessException;
 import java.util.List;
 import java.util.Optional;
@@ -16,16 +16,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class OrganicInputServiceImpl implements OrganicInputService {
+public class InputServiceImpl implements InputService {
 
   @Autowired
-  private OrganicInputRepository organicInputRepository;
+  private InputRepository inputRepository;
 
   @Override
-  public OrganicInputEntity findById(Long id) throws Exception{
-    Optional<OrganicInputEntity> optionalOrganicInputEntity = organicInputRepository.findById(id);
+  public InputEntity findById(Long id) throws Exception{
+    Optional<InputEntity> optionalOrganicInputEntity = inputRepository.findById(id);
     if(!optionalOrganicInputEntity.isPresent()){
-      throw new BusinessException("", "Error de negocio", "Insumo organico no encontrado!: ");
+      throw new BusinessException("", "Error de negocio", "Insumo no encontrado!: ");
     }
     return optionalOrganicInputEntity.get();
   }
@@ -33,15 +33,15 @@ public class OrganicInputServiceImpl implements OrganicInputService {
 
 
   @Override
-  public List<OrganicInputEntity> findAll() {
-    return organicInputRepository.findAll();
+  public List<InputEntity> findAll() {
+    return inputRepository.findAll();
   }
 
   @Override
-  public OrganicInputEntity save(OrganicInputEntity organicInputEntity) {
+  public InputEntity save(InputEntity inputEntity) {
     ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
     Validator validator = factory.getValidator();
-    Set<ConstraintViolation<OrganicInputEntity>> violations = validator.validate(organicInputEntity);
+    Set<ConstraintViolation<InputEntity>> violations = validator.validate(inputEntity);
     if(!violations.isEmpty()){
       throw new ConstraintViolationException(violations);
     }
@@ -50,24 +50,24 @@ public class OrganicInputServiceImpl implements OrganicInputService {
             log.error(violation.getMessage());
         }
         * */
-    OrganicInputEntity organicInputEntity1 = organicInputRepository.save(organicInputEntity);
-    return organicInputEntity1;
+    InputEntity inputEntity1 = inputRepository.save(inputEntity);
+    return inputEntity1;
   }
 
   @Override
-  public OrganicInputEntity update(OrganicInputEntity organicInputEntity) {
-    return organicInputRepository.save(organicInputEntity);
+  public InputEntity update(InputEntity inputEntity) {
+    return inputRepository.save(inputEntity);
   }
 
   @Override
   public boolean delete(Long id) throws Exception{
 
-    Optional<OrganicInputEntity> optionalOrganicInputEntity = organicInputRepository
+    Optional<InputEntity> optionalOrganicInputEntity = inputRepository
         .findById(id);
     if (!optionalOrganicInputEntity.isPresent()) {
       throw new Exception("ID NO ENCONTRADO: " + id);
     }
-    organicInputRepository.deleteById(id);
+    inputRepository.deleteById(id);
     return true;
   }
 
