@@ -1,5 +1,6 @@
 package com.greenfarm.greenfarmsystem.model;
 
+import com.google.auto.value.AutoValue.Builder;
 import io.swagger.annotations.ApiModel;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,7 +25,7 @@ public class InputEntity {
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "input_seq")
   @SequenceGenerator(name = "input_seq", sequenceName = "input_seq", initialValue = 1)
   @Column(name = "input_id")
-  private Long id;
+  private Long inputId;
 
   @NotBlank
   @Size(min=1, max=30, message = "El nombre de insumo debe contener entre 1 y 30 caracteres")
@@ -57,17 +58,14 @@ public class InputEntity {
   @JoinColumn(name = "input_category_id", nullable = false, foreignKey = @ForeignKey(name = "FK_input_category"))
   private InputCategoryEntity inputCategoryEntity;
 
-  @ManyToOne
-  @JoinColumn(name = "prod_cycle_id", nullable = true, foreignKey = @ForeignKey(name = "FK_prod_cycle"))
-  private ProductiveCycleEntity productiveCycleEntity;
 
 
-  public Long getId() {
-    return id;
+  public Long getInputId() {
+    return inputId;
   }
 
-  public void setId(Long id) {
-    this.id = id;
+  public void setInputId(Long inputId) {
+    this.inputId = inputId;
   }
 
   public String getName() {
@@ -127,12 +125,4 @@ public class InputEntity {
     this.inputCategoryEntity = inputCategoryEntity;
   }
 
-  public ProductiveCycleEntity getProductiveCycleEntity() {
-    return productiveCycleEntity;
-  }
-
-  public void setProductiveCycleEntity(
-      ProductiveCycleEntity productiveCycleEntity) {
-    this.productiveCycleEntity = productiveCycleEntity;
-  }
 }

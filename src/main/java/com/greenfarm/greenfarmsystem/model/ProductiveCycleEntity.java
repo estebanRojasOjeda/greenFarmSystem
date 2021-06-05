@@ -1,14 +1,16 @@
 package com.greenfarm.greenfarmsystem.model;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.ForeignKey;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -21,8 +23,8 @@ public class ProductiveCycleEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "prod_cycle_seq")
   @SequenceGenerator(name = "prod_cycle_seq", sequenceName = "prod_cycle_seq", initialValue = 1)
-  @Column(name = "prod_cycle_id")
-  private Long id;
+  @Column(name = "productive_cycle_id")
+  private Long productiveCycleId;
 
   @NotNull
   @Column(name = "prod_cycle_start_date", nullable = true)
@@ -44,13 +46,20 @@ public class ProductiveCycleEntity {
   @Column(name = "prod_cycle_comments", length = 100, nullable = true)
   private String comments;
 
+  @ManyToMany(fetch = FetchType.EAGER)
+  @JoinTable(
+      name = "jt_productcycle_input",
+      joinColumns = @JoinColumn(name = "productive_cycle_id", referencedColumnName = "productive_cycle_id"),
+      inverseJoinColumns = @JoinColumn(name = "input_id", referencedColumnName = "input_id"))
+  private List<InputEntity> inputEntityList;
 
-  public Long getId() {
-    return id;
+
+  public Long getProductiveCycleId() {
+    return productiveCycleId;
   }
 
-  public void setId(Long id) {
-    this.id = id;
+  public void setProductiveCycleId(Long productiveCycleId) {
+    this.productiveCycleId = productiveCycleId;
   }
 
   public LocalDateTime getStartDate() {
@@ -91,5 +100,14 @@ public class ProductiveCycleEntity {
 
   public void setComments(String comments) {
     this.comments = comments;
+  }
+
+  public List<InputEntity> getInputEntityList() {
+    return inputEntityList;
+  }
+
+  public void setInputEntityList(
+      List<InputEntity> inputEntityList) {
+    this.inputEntityList = inputEntityList;
   }
 }
