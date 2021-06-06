@@ -11,9 +11,11 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import lombok.Data;
 
 @Entity
 @Table(name = "sales")
+@Data
 public class SalesEntity {
 
   @Id
@@ -31,27 +33,4 @@ public class SalesEntity {
   @Column(name = "sale_client_name", length = 60, nullable = true)
   private String saleClientName;
 
-  public Long getId() {
-    return id;
-  }
-
-  public void setId(Long id) {
-    this.id = id;
-  }
-
-  public LocalDateTime getSaleDate() {
-    return saleDate;
-  }
-
-  public void setSaleDate(LocalDateTime saleDate) {
-    this.saleDate = saleDate;
-  }
-
-  public String getSaleClientName() {
-    return saleClientName;
-  }
-
-  public void setSaleClientName(String saleClientName) {
-    this.saleClientName = saleClientName;
-  }
 }

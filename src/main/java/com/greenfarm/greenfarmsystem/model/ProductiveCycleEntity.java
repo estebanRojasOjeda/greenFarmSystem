@@ -15,9 +15,11 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import lombok.Data;
 
 @Entity
 @Table(name = "productive_cycle")
+@Data
 public class ProductiveCycleEntity {
 
   @Id
@@ -53,61 +55,4 @@ public class ProductiveCycleEntity {
       inverseJoinColumns = @JoinColumn(name = "input_id", referencedColumnName = "input_id"))
   private List<InputEntity> inputEntityList;
 
-
-  public Long getProductiveCycleId() {
-    return productiveCycleId;
-  }
-
-  public void setProductiveCycleId(Long productiveCycleId) {
-    this.productiveCycleId = productiveCycleId;
-  }
-
-  public LocalDateTime getStartDate() {
-    return startDate;
-  }
-
-  public void setStartDate(LocalDateTime startDate) {
-    this.startDate = startDate;
-  }
-
-  public LocalDateTime getEndDate() {
-    return endDate;
-  }
-
-  public void setEndDate(LocalDateTime endDate) {
-    this.endDate = endDate;
-  }
-
-  public Float getTemperature() {
-    return temperature;
-  }
-
-  public void setTemperature(Float temperature) {
-    this.temperature = temperature;
-  }
-
-  public Float getHumidity() {
-    return humidity;
-  }
-
-  public void setHumidity(Float humidity) {
-    this.humidity = humidity;
-  }
-
-  public String getComments() {
-    return comments;
-  }
-
-  public void setComments(String comments) {
-    this.comments = comments;
-  }
-
-  public List<InputEntity> getInputEntityList() {
-    return inputEntityList;
-  }
-
-  public void setInputEntityList(
-      List<InputEntity> inputEntityList) {
-    this.inputEntityList = inputEntityList;
-  }
 }

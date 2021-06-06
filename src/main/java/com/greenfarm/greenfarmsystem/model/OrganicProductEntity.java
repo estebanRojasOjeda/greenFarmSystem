@@ -13,9 +13,11 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import lombok.Data;
 
 @Entity
 @Table(name = "organic_product")
+@Data
 public class OrganicProductEntity {
 
   @Id
@@ -37,37 +39,4 @@ public class OrganicProductEntity {
   @JoinColumn(name = "org_prod_type_id", nullable = false, foreignKey = @ForeignKey(name = "FK_organic_product_type"))
   private OrganicProductTypeEntity organicProductTypeEntity;
 
-
-  public Long getId() {
-    return Id;
-  }
-
-  public void setId(Long id) {
-    Id = id;
-  }
-
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public Integer getPrice() {
-    return price;
-  }
-
-  public void setPrice(Integer price) {
-    this.price = price;
-  }
-
-  public OrganicProductTypeEntity getOrganicProductTypeEntity() {
-    return organicProductTypeEntity;
-  }
-
-  public void setOrganicProductTypeEntity(
-      OrganicProductTypeEntity organicProductTypeEntity) {
-    this.organicProductTypeEntity = organicProductTypeEntity;
-  }
 }

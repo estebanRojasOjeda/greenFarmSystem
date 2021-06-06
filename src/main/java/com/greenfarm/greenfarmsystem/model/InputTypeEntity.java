@@ -11,10 +11,12 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import lombok.Data;
 
 @ApiModel(description = "Input type properties")
 @Entity
 @Table(name = "input_type")
+@Data
 public class InputTypeEntity {
 
   @Id
@@ -34,28 +36,4 @@ public class InputTypeEntity {
   @Column(name = "input_type_measurement", length = 3, nullable = true)
   private String measurement;
 
-
-  public Long getId() {
-    return id;
-  }
-
-  public void setId(Long id) {
-    this.id = id;
-  }
-
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public String getMeasurement() {
-    return measurement;
-  }
-
-  public void setMeasurement(String measurement) {
-    this.measurement = measurement;
-  }
 }

@@ -15,10 +15,12 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import lombok.Data;
 
 @ApiModel(description = "Input properties")
 @Entity
 @Table(name = "input")
+@Data
 public class InputEntity {
 
   @Id
@@ -57,72 +59,5 @@ public class InputEntity {
   @ManyToOne
   @JoinColumn(name = "input_category_id", nullable = false, foreignKey = @ForeignKey(name = "FK_input_category"))
   private InputCategoryEntity inputCategoryEntity;
-
-
-
-  public Long getInputId() {
-    return inputId;
-  }
-
-  public void setInputId(Long inputId) {
-    this.inputId = inputId;
-  }
-
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public String getManufacturer() {
-    return manufacturer;
-  }
-
-  public void setManufacturer(String manufacturer) {
-    this.manufacturer = manufacturer;
-  }
-
-  public String getModel() {
-    return model;
-  }
-
-  public void setModel(String model) {
-    this.model = model;
-  }
-
-  public Integer getPrice() {
-    return price;
-  }
-
-  public void setPrice(Integer price) {
-    this.price = price;
-  }
-
-  public String getComments() {
-    return comments;
-  }
-
-  public void setComments(String comments) {
-    this.comments = comments;
-  }
-
-  public InputTypeEntity getInputTypeEntity() {
-    return inputTypeEntity;
-  }
-
-  public void setInputTypeEntity(InputTypeEntity inputTypeEntity) {
-    this.inputTypeEntity = inputTypeEntity;
-  }
-
-  public InputCategoryEntity getInputCategoryEntity() {
-    return inputCategoryEntity;
-  }
-
-  public void setInputCategoryEntity(
-      InputCategoryEntity inputCategoryEntity) {
-    this.inputCategoryEntity = inputCategoryEntity;
-  }
 
 }

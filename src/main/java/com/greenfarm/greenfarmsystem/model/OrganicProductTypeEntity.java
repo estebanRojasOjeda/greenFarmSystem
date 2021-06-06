@@ -9,9 +9,11 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import lombok.Data;
 
 @Entity
 @Table(name = "organic_product_type")
+@Data
 public class OrganicProductTypeEntity {
 
   @Id
@@ -35,36 +37,4 @@ public class OrganicProductTypeEntity {
   @Column(name = "org_prod_type_desc", length = 100)
   private String productTypeDescription;
 
-
-  public Long getId() {
-    return id;
-  }
-
-  public void setId(Long id) {
-    this.id = id;
-  }
-
-  public String getProductTypeName() {
-    return productTypeName;
-  }
-
-  public void setProductTypeName(String productTypeName) {
-    this.productTypeName = productTypeName;
-  }
-
-  public String getProducttypeFamily() {
-    return producttypeFamily;
-  }
-
-  public void setProducttypeFamily(String producttypeFamily) {
-    this.producttypeFamily = producttypeFamily;
-  }
-
-  public String getProductTypeDescription() {
-    return productTypeDescription;
-  }
-
-  public void setProductTypeDescription(String productTypeDescription) {
-    this.productTypeDescription = productTypeDescription;
-  }
 }

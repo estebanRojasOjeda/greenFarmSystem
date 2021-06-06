@@ -1,5 +1,6 @@
 package com.greenfarm.greenfarmsystem.model;
 
+import com.google.auto.value.AutoValue.Builder;
 import io.swagger.annotations.ApiModel;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,10 +11,14 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import lombok.Data;
+
 
 @ApiModel(description = "Input category properties")
 @Entity
 @Table(name = "input_category")
+@Builder
+@Data
 public class InputCategoryEntity {
 
   @Id
@@ -27,20 +32,4 @@ public class InputCategoryEntity {
   @Column(name = "input_category_name", length = 60, nullable = true)
   private String name;
 
-
-  public Long getId() {
-    return id;
-  }
-
-  public void setId(Long id) {
-    this.id = id;
-  }
-
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
 }
