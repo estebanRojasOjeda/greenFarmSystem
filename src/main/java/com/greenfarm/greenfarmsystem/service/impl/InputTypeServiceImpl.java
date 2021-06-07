@@ -47,7 +47,7 @@ public class InputTypeServiceImpl implements InputTypeService {
       throw new ConstraintViolationException(violations);
     }
         /*
-        * for (ConstraintViolation<User> violation : violations) {
+        * for (ConstraintViolation<UserEntity> violation : violations) {
             log.error(violation.getMessage());
         }
         * */
