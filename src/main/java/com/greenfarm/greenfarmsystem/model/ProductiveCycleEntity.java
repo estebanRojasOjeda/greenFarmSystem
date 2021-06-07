@@ -48,11 +48,18 @@ public class ProductiveCycleEntity {
   @Column(name = "prod_cycle_comments", length = 100, nullable = true)
   private String comments;
 
-  @ManyToMany(fetch = FetchType.EAGER)
+  @ManyToMany
   @JoinTable(
       name = "jt_productcycle_input",
       joinColumns = @JoinColumn(name = "productive_cycle_id", referencedColumnName = "productive_cycle_id"),
       inverseJoinColumns = @JoinColumn(name = "input_id", referencedColumnName = "input_id"))
   private List<InputEntity> inputEntityList;
+
+  @ManyToMany
+  @JoinTable(
+      name = "jt_productcycle_organicproduct",
+      joinColumns = @JoinColumn(name = "productive_cycle_id", referencedColumnName = "productive_cycle_id"),
+      inverseJoinColumns = @JoinColumn(name = "org_product_id", referencedColumnName = "org_product_id"))
+  private List<OrganicProductEntity> organicProductEntityList;
 
 }

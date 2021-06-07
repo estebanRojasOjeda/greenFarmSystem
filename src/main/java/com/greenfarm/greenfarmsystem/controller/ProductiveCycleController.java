@@ -3,6 +3,8 @@ package com.greenfarm.greenfarmsystem.controller;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
+import com.greenfarm.greenfarmsystem.dto.ProductionDetailDto;
+import com.greenfarm.greenfarmsystem.dto.ProductionRequestDto;
 import com.greenfarm.greenfarmsystem.dto.ProductiveCycleDetailDto;
 import com.greenfarm.greenfarmsystem.dto.ProductiveCycleRequestDto;
 import com.greenfarm.greenfarmsystem.model.ProductiveCycleEntity;
@@ -66,6 +68,17 @@ public class ProductiveCycleController {
     return ResponseEntity.created(location).build();
   }
 
+  @ApiOperation(value = "Save productive production entity with details",
+      notes = "this endpoint needs an production cycle Dto",
+      response = List.class,
+      responseContainer = "productive cycle entity")
+  @PostMapping("/production")
+  public ResponseEntity<Object> saveProduction(@Valid @RequestBody ProductionRequestDto productionRequestDto) {
+    ProductiveCycleEntity obj = productiveCycleService.saveProduction(productionRequestDto);
+    URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getProductiveCycleId()).toUri();
+    return ResponseEntity.created(location).build();
+  }
+
   @ApiOperation(value = "Update a  productive cycle",
       notes = "this endpoint needs an  productive cycle object",
       response = List.class,
@@ -117,6 +130,39 @@ public class ProductiveCycleController {
 
     });
     return productiveCycleDetailDtoList;
+  }
+
+  @GetMapping("/production")
+  private List<ProductionDetailDto> getProduction() throws Exception {
+
+    List<ProductiveCycleEntity> productiveCycleEntityList;
+    List<ProductionDetailDto> productionDetailDtoList = new ArrayList<>();
+    productiveCycleEntityList = productiveCycleService.findAll();
+
+    productiveCycleEntityList.forEach(prod -> {
+      ProductionDetailDto productionDet = new ProductionDetailDto();
+      productionDet.setProductiveCycleId(prod.getProductiveCycleId());
+      productionDet.setStartDate(prod.getStartDate());
+      productionDet.setEndDate(prod.getEndDate());
+      productionDet.setTemperature(prod.getTemperature());
+      productionDet.setHumidity(prod.getHumidity());
+      productionDet.setComments(prod.getComments());
+
+      List<Link> inputLinkList = new ArrayList<>();
+      prod.getOrganicProductEntityList().forEach(org -> {
+        ControllerLinkBuilder linkTo = null;
+        try {
+          linkTo = linkTo(methodOn(OrganicProductController.class).findById((org.getId())));
+        } catch (Exception e) {
+          e.printStackTrace();
+        }
+        inputLinkList.add(linkTo.withRel("Organic Product").withType("Dto response").withTitle("Organic Product Dto Link"));
+      });
+      productionDet.setOrganicProduct(inputLinkList);
+      productionDetailDtoList.add(productionDet);
+
+    });
+    return productionDetailDtoList;
   }
 
 }

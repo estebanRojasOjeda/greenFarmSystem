@@ -1,9 +1,8 @@
 package com.greenfarm.greenfarmsystem.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.ForeignKey;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,11 +23,11 @@ public class ProductiveCycleInputEntity {
   @Column(name = "productive_cycle_input_id")
   private Long idProdCycleInput;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "productive_cycle_id", nullable = true)
   private ProductiveCycleEntity productiveCycleEntity;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "input_id", nullable = true)
   private InputEntity inputEntity;
 }

@@ -1,7 +1,7 @@
 package com.greenfarm.greenfarmsystem.controller;
 
 import com.greenfarm.greenfarmsystem.model.InputCategoryEntity;
-import com.greenfarm.greenfarmsystem.repository.InputCategoryService;
+import com.greenfarm.greenfarmsystem.service.InputCategoryService;
 import io.swagger.annotations.ApiOperation;
 import java.util.List;
 import javax.validation.Valid;

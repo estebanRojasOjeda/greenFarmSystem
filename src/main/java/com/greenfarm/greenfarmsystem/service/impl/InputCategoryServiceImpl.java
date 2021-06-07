@@ -2,9 +2,8 @@ package com.greenfarm.greenfarmsystem.service.impl;
 
 import com.greenfarm.greenfarmsystem.exception.ExceptionNotFoundModel;
 import com.greenfarm.greenfarmsystem.model.InputCategoryEntity;
-import com.greenfarm.greenfarmsystem.model.InputTypeEntity;
 import com.greenfarm.greenfarmsystem.repository.InputCategoryRepository;
-import com.greenfarm.greenfarmsystem.repository.InputCategoryService;
+import com.greenfarm.greenfarmsystem.service.InputCategoryService;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;

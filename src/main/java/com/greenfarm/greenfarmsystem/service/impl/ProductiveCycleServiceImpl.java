@@ -1,5 +1,6 @@
 package com.greenfarm.greenfarmsystem.service.impl;
 
+import com.greenfarm.greenfarmsystem.dto.ProductionRequestDto;
 import com.greenfarm.greenfarmsystem.dto.ProductiveCycleRequestDto;
 import com.greenfarm.greenfarmsystem.exception.ExceptionNotFoundModel;
 import com.greenfarm.greenfarmsystem.model.InputCategoryEntity;
@@ -7,6 +8,7 @@ import com.greenfarm.greenfarmsystem.model.InputEntity;
 import com.greenfarm.greenfarmsystem.model.ProductiveCycleEntity;
 import com.greenfarm.greenfarmsystem.repository.InputRepository;
 import com.greenfarm.greenfarmsystem.repository.ProductiveCycleInputRepository;
+import com.greenfarm.greenfarmsystem.repository.ProductiveCycleOrganicProductRepository;
 import com.greenfarm.greenfarmsystem.repository.ProductiveCycleRepository;
 import com.greenfarm.greenfarmsystem.service.InputService;
 import com.greenfarm.greenfarmsystem.service.ProductiveCycleService;
@@ -32,11 +34,16 @@ public class ProductiveCycleServiceImpl implements ProductiveCycleService {
   @Autowired
   private ProductiveCycleInputRepository productiveCycleInputRepository;
 
+  @Autowired
+  private ProductiveCycleOrganicProductRepository productiveCycleOrganicProductRepository;
+
   public ProductiveCycleServiceImpl(
       ProductiveCycleRepository productiveCycleRepository,
-      ProductiveCycleInputRepository productiveCycleInputRepository) {
+      ProductiveCycleInputRepository productiveCycleInputRepository,
+      ProductiveCycleOrganicProductRepository productiveCycleOrganicProductRepository) {
     this.productiveCycleRepository = productiveCycleRepository;
     this.productiveCycleInputRepository = productiveCycleInputRepository;
+    this.productiveCycleOrganicProductRepository = productiveCycleOrganicProductRepository;
   }
 
 
@@ -99,6 +106,17 @@ public class ProductiveCycleServiceImpl implements ProductiveCycleService {
     productiveCycleRequestDto.getInputIds().forEach(inputId -> productiveCycleInputRepository.registrar(
         productiveCycleRequestDto.getProductiveCycleEntity().getProductiveCycleId(), inputId));
     return productiveCycleRequestDto.getProductiveCycleEntity();
+  }
+
+  @Transactional
+  @Override
+  public ProductiveCycleEntity saveProduction(ProductionRequestDto productionRequestDto) {
+
+    productiveCycleRepository.save(productionRequestDto.getProductiveCycleEntity());
+
+    productionRequestDto.getOrganicProductIds().forEach(orgProductId -> productiveCycleOrganicProductRepository.registrar(
+        productionRequestDto.getProductiveCycleEntity().getProductiveCycleId(), orgProductId, productionRequestDto.getAmount()));
+    return productionRequestDto.getProductiveCycleEntity();
   }
 
 

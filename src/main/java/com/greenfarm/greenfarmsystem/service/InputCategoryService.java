@@ -1,4 +1,4 @@
-package com.greenfarm.greenfarmsystem.repository;
+package com.greenfarm.greenfarmsystem.service;
 
 import com.greenfarm.greenfarmsystem.model.InputCategoryEntity;
 import com.greenfarm.greenfarmsystem.service.CrudService;

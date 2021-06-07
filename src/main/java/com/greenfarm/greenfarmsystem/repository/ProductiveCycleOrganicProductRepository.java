@@ -8,13 +8,15 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ProductiveCycleInputRepository extends
+public interface ProductiveCycleOrganicProductRepository extends
     JpaRepository<ProductiveCycleInputEntity, Long> {
 
   @Modifying
   @Query(value =
-      "INSERT INTO jt_productcycle_input(productive_cycle_input_id, productive_cycle_id, input_id) "
-          + "VALUES (nextval('prod_cycle_input_seq'), :productiveCycleId, :inputId)", nativeQuery = true)
+      "INSERT INTO jt_productcycle_organicproduct(jt_pcop_id, productive_cycle_id, org_product_id, prcy_production_amount) "
+          + "VALUES (nextval('jt_prcy_orgproduct_seq'), :productiveCycleId, :organicProductId, :amount)", nativeQuery = true)
   Integer registrar(@Param("productiveCycleId") Long productiveCycleId,
-      @Param("inputId") Long inputId);
+      @Param("organicProductId") Long organicProductId,
+      @Param("amount") Long amount);
+
 }

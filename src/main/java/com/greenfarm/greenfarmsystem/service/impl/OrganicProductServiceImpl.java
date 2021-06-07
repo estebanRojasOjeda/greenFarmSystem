@@ -1,5 +1,6 @@
 package com.greenfarm.greenfarmsystem.service.impl;
 
+import com.greenfarm.greenfarmsystem.dto.ProductionRequestDto;
 import com.greenfarm.greenfarmsystem.model.OrganicProductEntity;
 import com.greenfarm.greenfarmsystem.model.OrganicProductTypeEntity;
 import com.greenfarm.greenfarmsystem.repository.OrganicProductRepository;
@@ -9,6 +10,7 @@ import corp.sche.trmg.commons.exception.BusinessException;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import javax.transaction.Transactional;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import javax.validation.Validation;
@@ -47,11 +49,7 @@ public class OrganicProductServiceImpl implements OrganicProductService {
     if (!violations.isEmpty()) {
       throw new ConstraintViolationException(violations);
     }
-        /*
-        * for (ConstraintViolation<User> violation : violations) {
-            log.error(violation.getMessage());
-        }
-        * */
+
     OrganicProductEntity organicProductEntity1 = organicProductRepository
         .save(organicProductEntity);
     return organicProductEntity1;
@@ -72,4 +70,5 @@ public class OrganicProductServiceImpl implements OrganicProductService {
     organicProductRepository.deleteById(id);
     return true;
   }
+
 }

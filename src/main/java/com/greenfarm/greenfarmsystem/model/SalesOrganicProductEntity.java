@@ -14,29 +14,28 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
 
-@Entity
-@Table(name = "jt_productcycle_organicproduct")
 @Data
-public class ProductiveCycleOrganicProduct {
-
+@Entity
+@Table(name = "jt_sales_organicproduct")
+public class SalesOrganicProductEntity {
   @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "jt_prcy_orgproduct_seq")
-  @SequenceGenerator(name = "jt_prcy_orgproduct_seq", sequenceName = "jt_prcy_orgproduct_seq", initialValue=1)
-  @Column(name = "jt_pcop_id")
-  private Long id;
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "jt_sale_orgproduct_seq")
+  @SequenceGenerator(name = "jt_sale_orgproduct_seq", sequenceName = "jt_sale_orgproduct_seq", initialValue = 1)
+  @Column(name = "jt_sapr_id")
+  private Long salesProductId;
 
   @NotNull
-  @Column(name = "prcy_production_amount", nullable = true)
-  private Integer production_amount;
+  @Column(name = "jt_sapr_price", nullable = false)
+  private Float price;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "prod_cycle_id",
-      foreignKey = @ForeignKey(name = "jt_pcop_prcy_id_fk"))
-  private ProductiveCycleEntity productiveCycleEntity;
+  @JoinColumn(name = "sale_id",
+      foreignKey = @ForeignKey(name = "jt_sapr_sale_id_fk"))
+  private SalesEntity salesEntity;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "org_product_id",
-      foreignKey = @ForeignKey(name = "jt_pcop_orpr_id_fk"))
+      foreignKey = @ForeignKey(name = "jt_sapr_orpr_id_fk"))
   private OrganicProductEntity organicProductEntity;
 
 
