@@ -1,10 +1,12 @@
 package com.greenfarm.greenfarmsystem.service.impl;
 
+import com.greenfarm.greenfarmsystem.dto.ProductiveCycleRequestDto;
 import com.greenfarm.greenfarmsystem.exception.ExceptionNotFoundModel;
 import com.greenfarm.greenfarmsystem.model.InputCategoryEntity;
 import com.greenfarm.greenfarmsystem.model.InputEntity;
 import com.greenfarm.greenfarmsystem.model.ProductiveCycleEntity;
 import com.greenfarm.greenfarmsystem.repository.InputRepository;
+import com.greenfarm.greenfarmsystem.repository.ProductiveCycleInputRepository;
 import com.greenfarm.greenfarmsystem.repository.ProductiveCycleRepository;
 import com.greenfarm.greenfarmsystem.service.InputService;
 import com.greenfarm.greenfarmsystem.service.ProductiveCycleService;
@@ -12,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import javax.transaction.Transactional;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import javax.validation.Validation;
@@ -26,9 +29,14 @@ public class ProductiveCycleServiceImpl implements ProductiveCycleService {
   @Autowired
   private ProductiveCycleRepository productiveCycleRepository;
 
+  @Autowired
+  private ProductiveCycleInputRepository productiveCycleInputRepository;
+
   public ProductiveCycleServiceImpl(
-      ProductiveCycleRepository productiveCycleRepository) {
+      ProductiveCycleRepository productiveCycleRepository,
+      ProductiveCycleInputRepository productiveCycleInputRepository) {
     this.productiveCycleRepository = productiveCycleRepository;
+    this.productiveCycleInputRepository = productiveCycleInputRepository;
   }
 
 
@@ -82,39 +90,16 @@ public class ProductiveCycleServiceImpl implements ProductiveCycleService {
     return true;
   }
 
-//  @Override
-//  public List<ProductiveCycleDto> getProductiveCycleDTO() throws Exception {
-//
-//    List<ProductiveCycleEntity> productiveCycleEntityList = productiveCycleRepository.findAll();
-//    List<ProductiveCycleDto> productiveCycleDtos = new ArrayList<>();
-//
-//    productiveCycleEntityList.forEach(prodCycle -> {
-//      try {
-//        ProductiveCycleDto dto = new ProductiveCycleDto();
-//        ProductiveCycleDto prodCycleDto = new ProductiveCycleDto();
-//
-//        InputEntity inputEntity = inputService
-//            .findById(prodCycle.getInputEntity().getId());
-//        TechInputEntity techInputEntity = techInputService
-//            .findById(prodCycle.getTechInputEntity().getId());
-//
-//        dto.setStartDate(prodCycle.getStartDate());
-//        dto.setEndDate(prodCycle.getEndDate());
-//        dto.setInputEntity(inputEntity);
-//        dto.setTechInputEntity(techInputEntity);
-//        dto.setTemperature(prodCycle.getTemperature());
-//        dto.setHumidity(prodCycle.getHumidity());
-//        dto.setComments(prodCycle.getComments());
-//
-//        productiveCycleDtos.add(dto);
-//
-//      } catch (Exception e) {
-//        System.out.println("Error" + e.getMessage());
-//      }
-//
-//    });
-//
-//    return productiveCycleDtos;
-//
-//  }
+  @Transactional
+  @Override
+  public ProductiveCycleEntity saveProdCycleDetail(ProductiveCycleRequestDto productiveCycleRequestDto) {
+
+    productiveCycleRepository.save(productiveCycleRequestDto.getProductiveCycleEntity());
+
+    productiveCycleRequestDto.getInputIds().forEach(inputId -> productiveCycleInputRepository.registrar(
+        productiveCycleRequestDto.getProductiveCycleEntity().getProductiveCycleId(), inputId));
+    return productiveCycleRequestDto.getProductiveCycleEntity();
+  }
+
+
 }

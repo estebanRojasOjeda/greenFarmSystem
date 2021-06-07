@@ -3,24 +3,28 @@ package com.greenfarm.greenfarmsystem.controller;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
-import com.greenfarm.greenfarmsystem.dto.InputDto;
 import com.greenfarm.greenfarmsystem.dto.ProductiveCycleDetailDto;
-import com.greenfarm.greenfarmsystem.model.InputEntity;
+import com.greenfarm.greenfarmsystem.dto.ProductiveCycleRequestDto;
 import com.greenfarm.greenfarmsystem.model.ProductiveCycleEntity;
 import com.greenfarm.greenfarmsystem.service.ProductiveCycleService;
 import io.swagger.annotations.ApiOperation;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+import javax.validation.Valid;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
 @RequestMapping("/gfs/production/productive-cycle")
@@ -51,13 +55,15 @@ public class ProductiveCycleController {
     return productiveCycleService.findById(id);
   }
 
-  @ApiOperation(value = "Save productive cycle",
-      notes = "this endpoint needs an productive cycle object",
+  @ApiOperation(value = "Save productive cycle entity with details",
+      notes = "this endpoint needs an productive cycle Dto",
       response = List.class,
-      responseContainer = "productive cycle")
-  @RequestMapping(method = RequestMethod.POST)
-  public ProductiveCycleEntity save(@RequestBody ProductiveCycleEntity productiveCycleEntity) {
-    return productiveCycleService.save(productiveCycleEntity);
+      responseContainer = "productive cycle entity")
+  @PostMapping
+  public ResponseEntity<Object> saveProductiveCycle(@Valid @RequestBody ProductiveCycleRequestDto productiveCycleRequestDto) {
+    ProductiveCycleEntity obj = productiveCycleService.saveProdCycleDetail(productiveCycleRequestDto);
+    URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getProductiveCycleId()).toUri();
+    return ResponseEntity.created(location).build();
   }
 
   @ApiOperation(value = "Update a  productive cycle",
@@ -83,7 +89,7 @@ public class ProductiveCycleController {
   @GetMapping("/prod-cycle-details")
   private List<ProductiveCycleDetailDto> getProductiveCycleDetailsDtoList() throws Exception {
 
-    List<ProductiveCycleEntity> productiveCycleEntityList = new ArrayList<>();
+    List<ProductiveCycleEntity> productiveCycleEntityList;
     List<ProductiveCycleDetailDto> productiveCycleDetailDtoList = new ArrayList<>();
     productiveCycleEntityList = productiveCycleService.findAll();
 
@@ -96,33 +102,21 @@ public class ProductiveCycleController {
       prodCycleDetail.setHumidity(prod.getHumidity());
       prodCycleDetail.setComments(prod.getComments());
 
-      List<InputDto> inputDtoList = new ArrayList<>();
       List<Link> inputLinkList = new ArrayList<>();
       prod.getInputEntityList().forEach(input -> {
-        InputDto inputDto = new InputDto();
-        inputDto.setInputId(input.getInputId());
-        inputDto.setName(input.getName());
-        inputDto.setManufacturer(input.getManufacturer());
-        inputDto.setModel(input.getModel());
-        inputDto.setPrice(input.getPrice());
-        inputDto.setComments(input.getComments());
-
         ControllerLinkBuilder linkTo = null;
         try {
           linkTo = linkTo(methodOn(InputController.class).findById((input.getInputId())));
         } catch (Exception e) {
           e.printStackTrace();
         }
-        inputLinkList.add(linkTo.withRel("Input").withType("Dto").withTitle("Input Dto Link"));
+        inputLinkList.add(linkTo.withRel("Input").withType("Dto response").withTitle("Input Dto Link"));
       });
-
       prodCycleDetail.setInputEntity(inputLinkList);
-
       productiveCycleDetailDtoList.add(prodCycleDetail);
 
     });
-
     return productiveCycleDetailDtoList;
-
   }
+
 }
