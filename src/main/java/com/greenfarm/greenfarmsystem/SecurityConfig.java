@@ -19,6 +19,7 @@ import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
+import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
 @Configuration
 @EnableWebSecurity
@@ -85,9 +86,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public TokenStore tokenStore() {
         // in memory
-        //return new JwtTokenStore(accessTokenConverter());
+        return new JwtTokenStore(accessTokenConverter());
         // on bdd
-        return new JdbcTokenStore(this.dataSource);
+        //return new JdbcTokenStore(this.dataSource);
     }
 
     @Bean

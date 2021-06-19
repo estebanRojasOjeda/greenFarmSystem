@@ -26,7 +26,7 @@ public class UserEntity {
   private Long userId;
 
   @Column(name = "user_name")
-  private String userName;
+  private String username;
 
   @Column(name = "user_pass")
   private String password;

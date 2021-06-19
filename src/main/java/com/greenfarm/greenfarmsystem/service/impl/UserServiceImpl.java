@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    UserEntity userEntity = userRepository.findOneByUserName(username);
+    UserEntity userEntity = userRepository.findOneByUsername(username);
     if(userEntity == null) {
       throw new UsernameNotFoundException(String.format("Usuario no existe", username));
     }
@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     userEntity.getRolEntityList().forEach(rol -> {
       roles.add(new SimpleGrantedAuthority(rol.getRolName()));
     });
-    UserDetails ud = new User(userEntity.getUserName(), userEntity.getPassword(), roles);
+    UserDetails ud = new User(userEntity.getUsername()  , userEntity.getPassword(), roles);
     return ud;
   }
 }
